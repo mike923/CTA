@@ -8,6 +8,9 @@ const passport = require('./auth/passport')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const commentsRouter = require('./routes/comments');
+const genresRouter = require('./routes/genres');
+const showsRouter = require('./routes/shows');
 
 const app = express();
 // vvv authentication stuff vvv 
@@ -30,5 +33,8 @@ app.use(passport.session())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/comments', commentsRouter);
+app.use('/genres', genresRouter);
+app.use('/shows', showsRouter);
 
 module.exports = app;

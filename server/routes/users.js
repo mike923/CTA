@@ -21,5 +21,12 @@ router.get('/', requireLoginMid, async (req, res, next) => {
     }
 });
 
+router.get('/:id', (req, res, next) => {
+    res.send(`you've hit GET /users/${req.params.id} route`)
+})
+
+router.post('/', (req, res, next) => {
+    res.send(`you've hit POST /users route`)
+})
 
 module.exports = router;
