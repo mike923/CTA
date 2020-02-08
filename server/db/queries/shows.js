@@ -10,7 +10,7 @@ const addNewShow = async (show) => await db.one(`
     RETURNING *
 `, show)
 
-const getShowByGenre = async (id) => await db.one('SELECT * FROM shows WHERE genre_id = $1', [id])
+const getShowByGenre = async (id) => await db.any('SELECT * FROM shows WHERE genre_id = $1', [id])
 
 const getShowByUser = async (id) => await db.any('SELECT * FROM shows WHERE user_id = $1', [id])
 

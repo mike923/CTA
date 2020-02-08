@@ -23,7 +23,6 @@ router.get('/show/:show_id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         let comment = await addNewComment(req.body)
-        console.log(comment)
         res.json({
             payload: comment,
             msg: 'success posting comment',
