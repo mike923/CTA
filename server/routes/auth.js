@@ -10,7 +10,8 @@ router.post('/signup', async (req, res, next) => {
         const password_digest = await hashPass(req.body.password)
         const user = {
             username: req.body.username,
-            password: password_digest
+            password: password_digest,
+            avatar_url: '',
         }
 
         let newUser = await addNewUser(user)

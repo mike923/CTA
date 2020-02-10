@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { comparePasswords } = require('../auth/helpers');
+const { comparePass } = require('../auth/helpers');
 const usersQueries = require('../db/queries/users');
 
 passport.use(new LocalStrategy(async (username, password, done) => {
@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
             return done(null, false)
         }
 
-        const passMatch = await comparePasswords(password, user.password_digest);
+        const passMatch = await comparePass(password, user.password_digest);
         if (!passMatch) {
             // Username found but passwords don't match
             return done(null, false)
