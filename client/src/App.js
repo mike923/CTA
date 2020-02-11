@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 import { SET_LOADING, SET_USER, LOGOUT } from './store/actions/actionTypes'
-import { Navbar, Profile, Home, Users, PrivateRoute } from './Components'
-import AuthContainer from './Containers/AuthContainer';
+import { Navbar, Home, Users, PrivateRoute } from './Components'
+import { AuthContainer, ProfileContainer } from './Containers';
 
 const App = (props) => {
     const { setUser, setLoading, logout, isUserLoggedIn } = props
 
     useEffect(() => {
         checkUserLoggedIn()
-    }, [])
+    }, [isUserLoggedIn])
 
     const checkUserLoggedIn = async () => {
         console.log('Checking if user logged in')
@@ -55,7 +55,7 @@ const App = (props) => {
                 <PrivateRoute path="/shows" component={Users} />
                 <PrivateRoute path="/shows/:id/user/:userId" component={Users} />
                 <PrivateRoute path="/users/:id/addShow" component={Users} />
-                <PrivateRoute path="/users/:id" component={Profile} />
+                <PrivateRoute path="/users/:id" component={ProfileContainer} />
                 <PrivateRoute path="/users" component={Users} />
                 <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} />
                 <Route path="/" component={Home} />

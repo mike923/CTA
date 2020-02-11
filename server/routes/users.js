@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUsers } = require('../db/queries/users')
+const { getAllUsers, getUserByID } = require('../db/queries/users')
 const { requireLoginMid } = require('../auth/helpers')
 
 
@@ -21,7 +21,22 @@ router.get('/', requireLoginMid, async (req, res, next) => {
     }
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+    try {
+        let user = await getUserByID(req.params.id)
+        res.json({
+            payload: user,
+            msg: 'Retrieved all user',
+            err: false
+        })
+    } catch (error) {
+        console.log('error', error)
+        res.status(500).json({
+            payload: null,
+            msg: `Failed retrieving user by id:${req.params.id}`,
+            err: true
+        })
+    }
     res.send(`you've hit GET /users/${req.params.id} route`)
 })
 
