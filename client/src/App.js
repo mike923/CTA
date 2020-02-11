@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 import { SET_LOADING, SET_USER, LOGOUT } from './store/actions/actionTypes'
-import { Navbar, Home, Users, PrivateRoute } from './Components'
+import { Navbar, Profile, Home, Users, PrivateRoute } from './Components'
 import AuthContainer from './Containers/AuthContainer';
 
 const App = (props) => {
-    const { setUser, setLoading, logout } = props
+    const { setUser, setLoading, logout, isUserLoggedIn } = props
 
     useEffect(() => {
         checkUserLoggedIn()
@@ -46,13 +46,18 @@ const App = (props) => {
         <div className="App">
             <Navbar
                 logoutUser={logoutUser}
-                isUserLoggedIn={props.isUserLoggedIn}
+                isUserLoggedIn={isUserLoggedIn}
             />
             <Switch>
                 <Route path="/login" component={AuthContainer} />
                 <Route path="/signup" component={AuthContainer} />
-                <PrivateRoute path="/users" component={Users} isUserLoggedIn={props.isUserLoggedIn} />
-                <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} isUserLoggedIn={props.isUserLoggedIn} />
+                <Route path="/about" component={AuthContainer} />
+                <PrivateRoute path="/shows" component={Users} />
+                <PrivateRoute path="/shows/:id/user/:userId" component={Users} />
+                <PrivateRoute path="/users/:id/addShow" component={Users} />
+                <PrivateRoute path="/users/:id" component={Profile} />
+                <PrivateRoute path="/users" component={Users} />
+                <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} />
                 <Route path="/" component={Home} />
             </Switch>
         </div>

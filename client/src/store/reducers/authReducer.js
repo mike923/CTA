@@ -21,6 +21,7 @@ const authReducer = (state = initialState, {type, payload}) => {
         case LOGOUT:
             newState.user = null
             newState.isUserLoggedIn = false
+            break;
         default:
             break;
     }

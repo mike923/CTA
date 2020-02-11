@@ -1,9 +1,9 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import LoginForm from '../Components/LoginForm'
-import SignupForm from '../Components/SignupForm'
 import axios from 'axios';
 import { connect } from 'react-redux'
+import { Switch, Route, Redirect } from 'react-router-dom'
+
+import { LoginForm, SignupForm } from '../Components'
 import { SET_USER } from '../store/actions/actionTypes';
 
 const AuthContainer = (props) => {
@@ -37,7 +37,7 @@ const AuthContainer = (props) => {
                         <Route 
                             path="/signup" 
                             render={() => <SignupForm signupUser={signupUser} />} 
-                            />
+                        />
                         <Route 
                             path="/login" 
                             render={() => <LoginForm loginUser={loginUser} />} 
