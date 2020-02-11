@@ -1,105 +1,67 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import LoginForm from '../Components/LoginForm'
 import SignupForm from '../Components/SignupForm'
 import axios from 'axios';
 import { connect } from 'react-redux'
+import { SET_USER } from '../store/actions/actionTypes';
 
-class AuthContainer extends Component {
-    state = {
-        username: '',
-        password: '',
-        avatar_url: '',
-    }
+const AuthContainer = (props) => {
+    const { isUserLoggedIn, setUser } = props
 
-    handleChange = ({target: {name, value}}) => this.setState({[name]: value})
-
-    signupUser = async () => {
-        // Make network request to /auth/signup to signup user
-        // then login user
-        console.log('Signingup user')
+    const signupUser = async () => {
         try {
-            await axios.post('/auth/signup', this.state)
-            this.loginUser()
+            await axios.post('/auth/signup', props)
+            loginUser()
         } catch (err) {
             console.log('ERROR', err)
         }
     }
 
-    loginUser = async () => {
-        // Make network request to /auth/login to login user
-        console.log('Logging user')
+    const loginUser = async () => {
         try {
-            const { data } = await axios.post('/auth/login', this.state)
-
-            const user = data.payload
-            this.props.setUser(user)
-
+            const { data: { payload } } = await axios.post('/auth/login', props)
+            setUser(payload)
         } catch (err) {
             console.log('ERROR', err)
         }
     }
 
-    renderSignupForm = () => {
-        const { username, password } = this.state
-        return (
-            <SignupForm
-                handleChange={this.handleChange}
-                username={username}
-                password={password}
-                signupUser={this.signupUser}
-            />
-        )
-    }
+    return (
+        <div>
+            <h2>AuthContainer</h2>
+            {isUserLoggedIn
+                ? <Redirect to="/profile" />
+                : (
+                    <Switch>
+                        <Route 
+                            path="/signup" 
+                            render={() => <SignupForm signupUser={signupUser} />} 
+                            />
+                        <Route 
+                            path="/login" 
+                            render={() => <LoginForm loginUser={loginUser} />} 
+                        />
+                    </Switch>
+                )
+            }
+        </div>
+    )
+}
 
-    renderLoginForm = () => {
-        const { username, password } = this.state
-        return (
-            <LoginForm
-                handleChange={this.handleChange}
-                username={username}
-                password={password}
-                loginUser={this.loginUser}
-            />
-        )
-    }
+const mapStateToProps = ({authReducer, inputReducer}) => {
+    return { ...authReducer, ...inputReducer }
+}
 
-    render() {
-        const { isUserLoggedIn } = this.props;
-        return (
-            <div>
-                <h2>AuthContainer</h2>
-                {
-                    isUserLoggedIn
-                        ? <Redirect to="/profile" />
-                        : (
-                            <Switch>
-                                <Route path="/login" render={this.renderLoginForm} />
-                                <Route path="/signup" render={this.renderSignupForm} />
-                            </Switch>
-                        )
-                }
-            </div>
-        )
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser: (user) => {
+            dispatch({
+                type: SET_USER,
+                payload: user,
+            })
+        }
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         username,
-//         password
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         handleChange: ({target: {name, value}}) => {
-//             dispatch({
-//                 type: HANDLECHANGE,
-//                 payload: {name, value}
-//             })
-//         }
-//     }
-// }
-
-export default AuthContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

@@ -1,92 +1,87 @@
-import React from 'react';
-import Navbar from './Components/Navbar'
-import { Switch, Route, withRouter } from 'react-router-dom'
-import AuthContainer from './Containers/AuthContainer';
-import Home from './Components/Home'
-import Users from './Components/Users'
-import PrivateRoute from './Components/PrivateRoute.jsx'
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { Switch, Route, withRouter } from 'react-router-dom'
 
-class App extends React.Component {
-    state = {
-        user: null,
-        isUserLoggedIn: false,
-        loadingUser: true
-    }
+import { SET_LOADING, SET_USER, LOGOUT } from './store/actions/actionTypes'
+import { Navbar, Home, Users, PrivateRoute } from './Components'
+import AuthContainer from './Containers/AuthContainer';
 
-    setUser = (user) => {
-        console.log('setting user to app state')
-        this.setState({
-            user: user,
-            isUserLoggedIn: true, // Since the first thing we do on componentDidMount is to check if the user is logged in in our backend
-            loadingUser: false
-        })
-    }
+const App = (props) => {
+    const { setUser, setLoading, logout } = props
 
-    componentDidMount() {
-        this.checkUserLoggedIn()
-    }
+    useEffect(() => {
+        checkUserLoggedIn()
+    }, [])
 
-    checkUserLoggedIn = async () => {
+    const checkUserLoggedIn = async () => {
         console.log('Checking if user logged in')
         try {
             const { data } = await axios.get("/auth/isUserLoggedIn")
-            this.setUser(data.payload)
+            setUser(data.payload)
         } catch (err) {
             // User does not have an active session in the backend. User is logged out so set loadingUser to false.
             if (err.message.includes(401)) {
-                this.setState({
-                    loadingUser: false
-                })
+                setLoading()
             }
         }
     }
 
-    logoutUser = async () => {
+    const logoutUser = async () => {
         console.log('logging out user')
         try {
             await axios.get('/auth/logout')
-            this.setState({
-                user: null,
-                isUserLoggedIn: false
-            })
-            this.props.history.push('/') // Redirect user to / (home)
+            logout()
+            props.history.push('/') // Redirect user to / (home)
         } catch (err) {
             console.log('ERROR', err)
         }
     }
 
-    renderAuthContainer = (routeProps) => {
-        return (
-            <AuthContainer
-                setUser={this.setUser}
-                isUserLoggedIn={this.state.isUserLoggedIn}
-                {...routeProps}
-            />)
-    }
+    // if (loadingUser) { // If checking if user is authenticated has not completed display a loading animation otherwise render the app
+    //     return <div>loading...</div>
+    // }
 
-    render() {
-        const { isUserLoggedIn, loadingUser } = this.state;
+    return (
+        <div className="App">
+            <Navbar
+                logoutUser={logoutUser}
+                isUserLoggedIn={props.isUserLoggedIn}
+            />
+            <Switch>
+                <Route path="/login" component={AuthContainer} />
+                <Route path="/signup" component={AuthContainer} />
+                <PrivateRoute path="/users" component={Users} isUserLoggedIn={props.isUserLoggedIn} />
+                <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} isUserLoggedIn={props.isUserLoggedIn} />
+                <Route path="/" component={Home} />
+            </Switch>
+        </div>
+    );
+}
 
-        // if (loadingUser) { // If checking if user is authenticated has not completed display a loading animation otherwise render the app
-        //     return <div>loading...</div>
-        // }
+const mapStateToProps = ({ authReducer }) => {
+    return { ...authReducer }
+}
 
-        return (
-            <div className="App">
-                <Navbar
-                    logoutUser={this.logoutUser}
-                    isUserLoggedIn={isUserLoggedIn}
-                />
-                <Switch>
-                    <Route path="/login" render={this.renderAuthContainer} />
-                    <Route path="/signup" render={this.renderAuthContainer} />
-                    <PrivateRoute path="/users" component={Users} isUserLoggedIn={isUserLoggedIn} />
-                    <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} isUserLoggedIn={isUserLoggedIn} />
-                    <Route path="/" component={Home} />
-                </Switch>
-            </div>
-        );
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser: (user) => {
+            dispatch({
+                type: SET_USER,
+                payload: user,
+            })
+        },
+        setLoading: () => {
+            dispatch({
+                type: SET_LOADING,
+            })
+        },
+        logout: () => {
+            dispatch({
+                type: LOGOUT,
+            })
+        }
     }
 }
-export default withRouter(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

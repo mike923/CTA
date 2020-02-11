@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { HANDLECHANGE } from '../store/actions/actionTypes';
 
 const LoginForm = ({ username, password, handleChange, loginUser }) => {
 
@@ -31,5 +33,18 @@ const LoginForm = ({ username, password, handleChange, loginUser }) => {
     )
 }
 
-export default LoginForm;
+const mapStateToProps = ({inputReducer}) => { return { ...inputReducer }}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleChange: ({target: {name, value}}) => {
+            dispatch({
+                type: HANDLECHANGE,
+                payload: {name, value}
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 

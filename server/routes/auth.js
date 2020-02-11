@@ -11,7 +11,7 @@ router.post('/signup', async (req, res, next) => {
         const user = {
             username: req.body.username,
             password: password_digest,
-            avatar_url: '',
+            avatar_url: req.body.avatar_url,
         }
 
         let newUser = await addNewUser(user)
