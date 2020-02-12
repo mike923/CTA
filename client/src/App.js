@@ -5,7 +5,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 
 import { SET_LOADING, SET_USER, LOGOUT } from './store/actions/actionTypes'
 import { Navbar, Home, Users, PrivateRoute } from './Components'
-import { AuthContainer, ShowsContainer, ProfileContainer } from './Containers';
+import { AuthContainer, ShowsContainer, ProfileContainer, UserShowContainer } from './Containers';
 
 const App = (props) => {
     const { setUser, setLoading, logout, isUserLoggedIn } = props
@@ -52,7 +52,7 @@ const App = (props) => {
                 <Route path="/login" component={AuthContainer} />
                 <Route path="/signup" component={AuthContainer} />
                 <Route path="/about" component={AuthContainer} />
-                <PrivateRoute path="/shows/:id/user/:userId" component={ShowsContainer} />
+                <PrivateRoute path="/shows/:id/user/:userId" component={UserShowContainer} />
                 <PrivateRoute path="/shows" component={ShowsContainer} />
                 <PrivateRoute path="/users/:id/addShow" component={Users} />
                 <PrivateRoute path="/users/:id" component={ProfileContainer} />

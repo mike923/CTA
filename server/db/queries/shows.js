@@ -12,7 +12,7 @@ const getShowByID = async (id) => await db.one(`
     FROM shows 
     JOIN genres
     ON shows.genre_id = genres.id
-    WHERE id = $1
+    WHERE shows.id = $1
 `, [id])
 
 const addNewShow = async (show) => await db.one(`
