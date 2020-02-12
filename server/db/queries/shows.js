@@ -1,10 +1,22 @@
 const db = require('../config')
 
 const getAllShows = async () => await db.any(`
-    SELECT *, shows.id AS show_id
+    SELECT title, img_url, genre_name,
+        ARRAY_AGG (
+            JSON_BUILD_OBJECT (
+                'show_id', shows.id, 
+                'user_id', users.id, 
+                'username', username, 
+                'avatar_url', avatar_url
+            )
+            ORDER BY shows.id
+        ) viewers
     FROM shows
-    JOIN genres
+    JOIN genres 
     ON shows.genre_id = genres.id
+    JOIN users 
+    ON shows.user_id = users.id
+    GROUP BY title, img_url, genre_name
 `)
 
 const getShowByID = async (id) => await db.one(`

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Shows = ({shows, user_id}) => {
+const AllUserShows = ({shows, user_id}) => {
     return (
         <ul>
             {shows.map(({show_id, title, img_url, genre_name}) => {
@@ -19,4 +19,4 @@ const Shows = ({shows, user_id}) => {
     )
 }
 
-export default Shows
+export default AllUserShows
