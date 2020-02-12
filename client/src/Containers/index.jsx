@@ -1,11 +1,13 @@
 import AuthContainer from './AuthContainer'
-import AllShowsContainer from './AllShowsContainer'
+import UsersContainer from './UsersContainer'
 import ProfileContainer from './ProfileContainer'
+import AllShowsContainer from './AllShowsContainer'
 import UserShowContainer from './UserShowContainer'
 
 export {
     AuthContainer,
-    AllShowsContainer,
+    UsersContainer,
     ProfileContainer,
+    AllShowsContainer,
     UserShowContainer,
 }
