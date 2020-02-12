@@ -1,7 +1,7 @@
 const db = require('../config')
 
 const getCommentsByShow = async (id) => await db.any(`
-    SELECT * 
+    SELECT comment_body, avatar_url, username, show_id, user_id 
     FROM comments 
     JOIN users
     ON comments.user_id = users.id
