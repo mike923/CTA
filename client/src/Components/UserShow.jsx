@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const UserShow = ({title, img_url, genre_name, comments}) => {
     return (
@@ -9,11 +10,14 @@ const UserShow = ({title, img_url, genre_name, comments}) => {
             <div>
                 <form action=""></form>
                 <ul>
-                    {comments.map((comment) => {
+                    {comments.map(({username, comment_body, user_id, avatar_url}, i) => {
                         return (
-                            <li>
-                                <h4>{comment.username}</h4>
-                                <p>{comment.comment_body}</p>
+                            <li key={i}>
+                                <Link to={`/users/${user_id}`}>
+                                    <img src={avatar_url} alt={username} height="40px" />
+                                    <h4>{username}</h4>
+                                </Link>
+                                <p>{comment_body}</p>
                             </li>
                         )
                     })}

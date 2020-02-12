@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Profile } from '../Components'
+import { Profile, AllUserShows } from '../Components'
 
-const ProfileConatiner = (props) => {
+const ProfileConatiner = ({match: {params: {id}}}) => {
     const [user, setUser] = useState({})
     const [shows, setShows] = useState([])
 
@@ -10,7 +10,6 @@ const ProfileConatiner = (props) => {
         (async (id) => {
             try {
                 let { data } = await axios.get(`/users/${id}`)
-                console.log(data)
                 setUser(data.payload)
             } catch (error) {
                 console.log('error', error)
@@ -21,11 +20,14 @@ const ProfileConatiner = (props) => {
             } catch (error) {
                 console.log('error', error)
             }
-        })(props.match.params.id)
-    }, [props.match.params.id])
+        })(id)
+    }, [id])
 
     return (
-        <Profile {...user} shows={shows} />
+        <div>
+            <Profile {...user} />
+            <AllUserShows shows={shows} user_id={id} />
+        </div>
     )
 }
 
