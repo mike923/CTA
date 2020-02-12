@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 import { SET_LOADING, SET_USER, LOGOUT } from './store/actions/actionTypes'
-import { Navbar, Home, PrivateRoute } from './Components'
-import { AuthContainer, AllShowsContainer, ProfileContainer, UsersContainer, UserShowContainer } from './Containers';
+import { Navbar, Home, PrivateRoute, About } from './Components'
+import { AuthContainer, AddShowContainer, AllShowsContainer, ProfileContainer, UsersContainer, UserShowContainer } from './Containers';
 
 const App = (props) => {
     const { setUser, setLoading, logout, isUserLoggedIn } = props
@@ -51,10 +51,10 @@ const App = (props) => {
             <Switch>
                 <Route path="/login" component={AuthContainer} />
                 <Route path="/signup" component={AuthContainer} />
-                <Route path="/about" component={AuthContainer} />
+                <Route path="/about" component={About} />
                 <PrivateRoute path="/shows/:id/user/:userId" component={UserShowContainer} />
                 <PrivateRoute path="/shows" component={AllShowsContainer} />
-                <PrivateRoute path="/users/:id/addShow" component={UsersContainer} />
+                <PrivateRoute path="/users/:id/addShow" component={AddShowContainer} />
                 <PrivateRoute path="/users/:id" component={ProfileContainer} />
                 <PrivateRoute path="/users" component={UsersContainer} />
                 <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} />

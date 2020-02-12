@@ -3,6 +3,7 @@ import Users from './Users'
 import About from './About'
 import Navbar from './Navbar'
 import Profile from './Profile'
+import AddShow from './AddShow'
 import AllShows from './AllShows'
 import Comments from './Comments'
 import UserShow from './UserShow'
@@ -18,6 +19,7 @@ export {
     About,
     Navbar,
     Profile,
+    AddShow,
     AllShows,
     Comments,
     UserShow,
