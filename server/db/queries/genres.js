@@ -2,11 +2,11 @@ const db = require('../config')
 
 const getAllGenres = async () => await db.any('SELECT * FROM genres')
 
-const addNewGenre = async (name) => await db.one(`
+const addNewGenre = async (genre_name) => await db.one(`
     INSERT INTO genres(genre_name)
-    VALUES($/name/)
+    VALUES($/genre_name/)
     RETURNING *
-`, name)
+`, genre_name)
 
 
 module.exports = {
