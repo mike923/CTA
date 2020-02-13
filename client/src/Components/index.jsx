@@ -11,7 +11,6 @@ import LoginForm from './LoginForm'
 import AddComment from './AddComment'
 import SignupForm from './SignupForm'
 import AllUserShows from './AllUserShows'
-import PrivateRoute from './PrivateRoute'
 
 export {
     Home,
@@ -27,5 +26,4 @@ export {
     AddComment,
     SignupForm,
     AllUserShows,
-    PrivateRoute,
 }

@@ -10,8 +10,8 @@ const AllShows = ({shows}) => (
                 <h4>{genre_name}</h4>
                 Being watched by: 
                 <ol>
-                    {viewers.map(({username, user_id}, i) => (
-                        <li key={i}><Link to={`/users/${user_id}`}>{username}</Link></li>
+                    {viewers.map(({username, show_id, user_id}, i) => (
+                        <li key={i}><Link to={`shows/${show_id}/user/${user_id}`}>{username}</Link></li>
                     ))}
                 </ol>
             </li>

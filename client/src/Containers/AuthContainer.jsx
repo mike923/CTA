@@ -6,8 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { LoginForm, SignupForm } from '../Components'
 import { SET_USER } from '../store/actions/actionTypes';
 
-const AuthContainer = (props) => {
-    const { isUserLoggedIn, setUser } = props
+const AuthContainer = ({ isUserLoggedIn, setUser, prevURL, ...props}) => {
 
     const signupUser = async () => {
         try {
@@ -29,9 +28,9 @@ const AuthContainer = (props) => {
 
     return (
         <div>
-            <h2>AuthContainer</h2>
+            <h2>Welcome</h2>
             {isUserLoggedIn
-                ? <Redirect to="/profile" />
+                ? <Redirect to={prevURL} />
                 : (
                     <Switch>
                         <Route 
