@@ -8,7 +8,6 @@ const UserShowContainer = ({match: {params}, user}) => {
     const show_id = params.id
     const [comments, setComments] = useState([])
     const [show, setShow] = useState({})
-    console.log(user)
 
     useEffect(() => {
         loadShow()
@@ -18,7 +17,6 @@ const UserShowContainer = ({match: {params}, user}) => {
     const loadShow = async () => {
         try {
             let { data } = await axios.get(`/shows/${show_id}`)
-            console.log(data.payload)
             setShow(data.payload)
         } catch (error) {
             console.log('error', error)
@@ -28,7 +26,6 @@ const UserShowContainer = ({match: {params}, user}) => {
     const loadComments = async () => {
         try {
             let { data } = await axios.get(`/comments/show/${show_id}`)
-            console.log(data.payload)
             setComments(data.payload)
         } catch (error) {
             console.log('error', error)
@@ -47,7 +44,6 @@ const UserShowContainer = ({match: {params}, user}) => {
             formData.username = user.username
             const newComments = [...comments]
             newComments.push(formData)
-            console.log(payload, comments, newComments)
             setComments(newComments)
         } catch (error) {
             console.log('error', error)

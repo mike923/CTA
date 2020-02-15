@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Profile, AllUserShows } from '../Components'
+import { connect } from 'react-redux'
 
-const ProfileConatiner = ({match: {params: {id}}}) => {
+const ProfileConatiner = ({match: {params}, user: {id}}) => {
     const [user, setUser] = useState({})
     const [shows, setShows] = useState([])
+    const profile_id = params.id ? params.id : id
 
     useEffect(() => {
         (async (id) => {
@@ -20,15 +22,19 @@ const ProfileConatiner = ({match: {params: {id}}}) => {
             } catch (error) {
                 console.log('error', error)
             }
-        })(id)
-    }, [id])
+        })(profile_id)
+    }, [profile_id])
 
     return (
         <div>
-            <Profile {...user} />
-            <AllUserShows shows={shows} user_id={id} />
+            <Profile {...user} showButtons={Number(params.id) === id} />
+            <AllUserShows shows={shows} user_id={profile_id} />
         </div>
     )
 }
 
-export default ProfileConatiner
+const mapStateToProps = ({authReducer}) => {
+    return { ...authReducer}
+}
+
+export default connect(mapStateToProps)(ProfileConatiner)

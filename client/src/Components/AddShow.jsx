@@ -9,8 +9,7 @@ const AddShow = ({genres, addShow}) => {
     const submit = (event) => {
         event.preventDefault()
 
-        const newShow = {title, img_url, genre_id, genre_name}
-        addShow(newShow)
+        addShow(title, img_url, genre_id, genre_name)
         setImg('')
         setShow('')
         setGenre('')

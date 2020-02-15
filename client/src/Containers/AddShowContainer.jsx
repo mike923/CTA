@@ -32,25 +32,20 @@ const AddShowContainer = ({user: {id}, match: {params}, ...props}) => {
     const addGenre = async (genre_name) => {
         try {
             const { data } =  await axios.post('/genres', {genre_name})
-            console.log(data, genres)
             const newGenres = genres.concat(data.payload)
-            console.log(newGenres)
             setGenres(newGenres)
         } catch (error) {
             console.log('error', error)
         }
     }
 
-    const addShow = async ({genre_id, genre_name, ...newShow}) => {
+    const addShow = async (title, img_url, genre_id, genre_name) => {
         try {
-            console.log(genre_id, newShow, genre_name)
             if (genre_id === 0) {
                 const { data } = await addGenre(genre_name)
                 genre_id = data.payload.id
             }
-            newShow.genre_id = genre_id
-            newShow.user_id = id
-            console.log(genre_id)
+            const newShow = {title, img_url, genre_id}
             const { data } = await axios.post('/shows', newShow)
             console.log(data)
         } catch (error) {

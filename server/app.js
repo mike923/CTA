@@ -12,6 +12,9 @@ const commentsRouter = require('./routes/comments');
 const genresRouter = require('./routes/genres');
 const showsRouter = require('./routes/shows');
 
+const { seed } = require('./db/seed')
+seed()
+
 const app = express();
 // vvv authentication stuff vvv 
 const sessionConfig = {

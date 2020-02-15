@@ -6,6 +6,7 @@ const getCommentsByShow = async (id) => await db.any(`
     JOIN users
     ON comments.user_id = users.id
     WHERE show_id = $1
+    ORDER BY comments.id
 `, [id])
 
 const addNewComment = async (comment) => await db.one(`
