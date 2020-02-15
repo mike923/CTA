@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Profile, AllUserShows } from '../Components'
+import { User, AllUserShows } from '../Components'
 import { connect } from 'react-redux'
 
-const ProfileConatiner = ({match: {params}, user: {id}}) => {
+const UserConatiner = ({match: {params}, user: {id}}) => {
     const [user, setUser] = useState({})
     const [shows, setShows] = useState([])
     const profile_id = params.id ? params.id : id
@@ -27,7 +27,7 @@ const ProfileConatiner = ({match: {params}, user: {id}}) => {
 
     return (
         <div>
-            <Profile {...user} showButtons={Number(params.id) === id} />
+            <User {...user} showButtons={Number(params.id) === id} />
             <AllUserShows shows={shows} user_id={profile_id} />
         </div>
     )
@@ -37,4 +37,4 @@ const mapStateToProps = ({authReducer}) => {
     return { ...authReducer}
 }
 
-export default connect(mapStateToProps)(ProfileConatiner)
+export default connect(mapStateToProps)(UserConatiner)

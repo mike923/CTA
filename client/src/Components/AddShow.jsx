@@ -21,12 +21,14 @@ const AddShow = ({genres, addShow}) => {
             <input 
                 type="text"
                 value={img_url}
+                placeholder="Poster URL"
                 onChange={({target:{value}}) => setImg(value)}
                 required
             />
             <input 
                 type="text"
                 value={title}
+                placeholder="Show Title"
                 onChange={({target:{value}}) => setShow(value)}
                 required
             />
@@ -35,6 +37,7 @@ const AddShow = ({genres, addShow}) => {
                 : (<input 
                     type="text"
                     value={genre_name}
+                    placeholder="Genre Name"
                     onChange={({target:{value}}) => setGenre(value)}
                     required
                 />)

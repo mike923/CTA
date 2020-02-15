@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getAllGenres, addNewGenre } = require('../db/queries/genres')
+const { requireLoginMid } = require('../auth/helpers')
 
 router.get('/', async (req, res, next) => {
     try {
@@ -20,7 +21,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async(req, res, next) => {
+router.post('/', requireLoginMid, async(req, res, next) => {
     try {
         let genre = await addNewGenre(req.body)
         res.json({

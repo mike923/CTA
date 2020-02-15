@@ -1,60 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import M from 'materialize-css'
 
-const Navbar = ({ logoutUser, isUserLoggedIn, user_id }) => {
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        let options = {
-            inDuration: 300,
-            outDuration: 300,
-            hover: true, // Activate on hover
-            coverTrigger: false, // Displays dropdown below the button
-        };
-        var instances = M.Sidenav.init(elems, options);
-    });
-    return (<>
-        <nav>
-            <div className='nav-wrapper'>
-                <Link className="brand-logo" to="/">Home</Link>
-                <a data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-                <ul className="right hide-on-med-and-down">
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/shows">Shows</Link></li>
-                    {isUserLoggedIn
-                    ? (<>
-                        <li><Link to={`/users/${user_id}/addShow`}>Add Show</Link></li>
-                        <li><Link to="/users">Users</Link></li>
-                        <li><Link to="/profile">Profile</Link></li>
-                        <button className="waves-effect waves-light btn" onClick={logoutUser}>Log-out</button>
-                    </>) 
-                    : (<>
-                        <li><Link to="/login">Log-In</Link></li>
-                        <li><Link to="/signup">Sign-Up</Link></li>
-                    </>)
-                    }
-                </ul>
-            </div>
-        </nav>
-        <ul className="sidenav" id="mobile-demo">
-            {isUserLoggedIn
-            ? (<>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/shows">Shows</Link></li>
-                <li><Link to={`/users/${user_id}/addShow`}>Add Show</Link></li>
-                <li><Link to="/users">Users</Link></li>
-                <li><Link to={`/users/${user_id}`}>Profile</Link></li>
-                <button className="waves-effect waves-light btn" onClick={logoutUser}>Log-out</button>
-            </>) 
-            : (<>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/shows">Shows</Link></li>
-                <li><Link to="/login">Log-In</Link></li>
-                <li><Link to="/signup">Sign-Up</Link></li>
-            </>)
-            }
-        </ul>
-    </>)
-}
+const Navbar = ({ logoutUser, isUserLoggedIn, user_id }) => (
+    <nav>
+        <Link to="/">Home</Link>{" "}
+        <Link to="/about">About</Link>{" "}
+        <Link to="/shows">Shows</Link>{" "}
+        {isUserLoggedIn 
+        ? (
+            <>
+                <Link to={`/users/${user_id}/addShow`}>Add Show</Link>{" "}
+                <Link to="/users">Users</Link>{" "}
+                <Link to={`/users/${user_id}`}>Profile</Link>{" "}
+                <button onClick={logoutUser}>Log-out</button>
+            </>
+        ) : (
+            <>
+                <Link to="/login">Log-In</Link>{" "}
+                <Link to="/signup">Sign-Up</Link>{" "}
+            </>
+        )}
+    </nav>
+)
+
 export default Navbar;
 

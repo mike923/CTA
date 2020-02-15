@@ -8,9 +8,9 @@ import {
     NavbarContainer, 
     AddShowContainer, 
     AllShowsContainer, 
-    ProfileContainer, 
-    UsersContainer, 
-    UserShowContainer 
+    UserContainer, 
+    AllUsersContainer, 
+    ShowContainer 
 } from './Containers';
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
                 />
                 <PrivateRoute 
                     path="/shows/:id" 
-                    component={UserShowContainer} 
+                    component={ShowContainer} 
                 />
                 <Route 
                     path="/shows" 
@@ -45,15 +45,15 @@ const App = () => {
                 />
                 <PrivateRoute 
                     path="/users/:id" 
-                    component={ProfileContainer} 
+                    component={UserContainer} 
                 />
                 <PrivateRoute 
                     path="/users" 
-                    component={UsersContainer} 
+                    component={AllUsersContainer} 
                 />
                 <PrivateRoute 
                     path="/profile" 
-                    component={ProfileContainer} 
+                    component={UserContainer} 
                 />
                 <Route 
                     path="/" 

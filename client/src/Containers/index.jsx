@@ -1,19 +1,19 @@
 import PrivateRoute from './PrivateRoute'
 import AuthContainer from './AuthContainer'
-import UsersContainer from './UsersContainer'
+import UserContainer from './UserContainer'
+import ShowContainer from './ShowContainer'
 import NavbarContainer from './NavbarContainer'
-import ProfileContainer from './ProfileContainer'
 import AddShowContainer from './AddShowContainer'
 import AllShowsContainer from './AllShowsContainer'
-import UserShowContainer from './UserShowContainer'
+import AllUsersContainer from './AllUsersContainer'
 
 export {
     PrivateRoute,
     AuthContainer,
-    UsersContainer,
+    UserContainer,
+    ShowContainer,
     NavbarContainer,
-    ProfileContainer,
     AddShowContainer,
     AllShowsContainer,
-    UserShowContainer,
+    AllUsersContainer,
 }

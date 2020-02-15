@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-import { Users } from '../Components'
+import { AllUsers } from '../Components'
 
-const UsersContainer = () => {
+const AllUsersContainer = () => {
     const [users, setUsers] = useState([])
     
     useEffect(() => {
@@ -18,9 +18,9 @@ const UsersContainer = () => {
     }, [])
 
     return (
-        <Users users={users} />
+        <AllUsers users={users} />
     )
 }
 
 
-export default UsersContainer;
+export default AllUsersContainer;

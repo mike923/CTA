@@ -1,27 +1,27 @@
+import User from './User'
 import Home from './Home'
-import Users from './Users'
 import About from './About'
 import Navbar from './Navbar'
-import Profile from './Profile'
 import AddShow from './AddShow'
 import AllShows from './AllShows'
+import AllUsers from './AllUsers'
+import ShowInfo from './ShowInfo'
 import Comments from './Comments'
-import UserShow from './UserShow'
 import LoginForm from './LoginForm'
 import AddComment from './AddComment'
 import SignupForm from './SignupForm'
 import AllUserShows from './AllUserShows'
 
 export {
+    User,
     Home,
-    Users,
     About,
     Navbar,
-    Profile,
     AddShow,
     AllShows,
+    AllUsers,
+    ShowInfo,
     Comments,
-    UserShow,
     LoginForm,
     AddComment,
     SignupForm,

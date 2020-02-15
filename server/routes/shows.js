@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getAllShows, getShowByID, addNewShow, getShowByGenre, getShowByUser } = require('../db/queries/shows')
+const { requireLoginMid } = require('../auth/helpers')
 
 
 router.get('/', async(req, res, next) => {
@@ -75,7 +76,7 @@ router.get('/user/:user_id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireLoginMid, async (req, res, next) => {
     try {
         let newShow = await addNewShow(req.body)
         res.json({

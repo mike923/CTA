@@ -8,7 +8,7 @@ const AddComment = ({id, username, avatar_url, addComment}) => {
         addComment(comment)
         setComment('')
     }
- 
+
     return (
         <form onSubmit={submit}>
             <Link to={`/users/${id}`}>
@@ -19,8 +19,10 @@ const AddComment = ({id, username, avatar_url, addComment}) => {
                 type="text" 
                 name="comment" 
                 value={comment} 
+                placeholder="What do you think?"
                 onChange={({target:{value}}) => setComment(value)}
             />
+            <button type="submit">Add Comment</button>
         </form>
     )
 }

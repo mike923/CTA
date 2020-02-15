@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { getCommentsByShow, addNewComment } = require('../db/queries/comments')
+const { requireLoginMid } = require('../auth/helpers')
 
 router.get('/show/:show_id', async (req, res, next) => {
     try {
         let comments = await getCommentsByShow(req.params.show_id)
+        console.log(comments)
         res.json({
             payload: comments,
             msg: `success retrieving /comments/show/${req.params.show_id}`,
@@ -20,7 +22,7 @@ router.get('/show/:show_id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireLoginMid, async (req, res, next) => {
     try {
         let comment = await addNewComment(req.body)
         res.json({
