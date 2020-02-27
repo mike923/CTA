@@ -8,6 +8,7 @@ const PrivateRoute = ({isUserLoggedIn, setUser, setPrevUrl, component, ...props}
     if (isUserLoggedIn) {
         return <Route {...props} component={component} />
     } else {
+        console.log(props.location.pathname)
         setPrevUrl(props.location.pathname)
         return <Redirect to={'/login'} />
     }

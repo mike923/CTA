@@ -41,10 +41,10 @@ const ShowContainer = ({match: {params}, user}) => {
         }
         try {
             const { data: {payload} } = await axios.post('/comments', formData)
-            formData.avatar_url = user.avatar_url
-            formData.username = user.username
-            const newComments = [...comments].reverse()
-            newComments.push(formData)
+            console.log(payload)
+            payload.avatar_url = user.avatar_url
+            payload.username = user.username
+            const newComments = [payload, ...comments]
             setComments(newComments)
         } catch (error) {
             console.log('error', error)
